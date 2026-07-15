@@ -54,30 +54,32 @@ FONT_LABEL    = ('Helvetica-Bold', 8)
 
 ---
 
-## Cover Page
+## PDF Header
 
 The first page is a cover with:
 
 ```
-[Full-width navy banner, 4 inches tall]
-  - Interview type (e.g. "Product Design") in white, 28pt bold, centered
-  - "Session N Feedback Report" in light blue-grey, 14pt, below title
-  - Score badge: large circle, filled with accent blue, positioned within the banner
+[Full-width navy banner, 1 inches tall]
+  - To the left:
+    - Interview type (e.g. "Product Design") in white, 28pt bold, centered
+    - "Session N Feedback Report" in light blue-grey, 14pt, below title
+  
+  - To the right:
+    - Score badge: circle, filled with accent blue, radius = banner_h / 2 (so the circle spans the full banner height, edge-to-edge), vertically centered in the banner.
     - "8.3" in white, 36pt bold
     - "/ 10" in white, 16pt
 
-[Bottom of cover]
-  - Thin footer strip in COLOR_PRIMARY with "PM Interview Coach | {Interview type} | {session number}" in white, 8pt
 ```
 
 ---
 
 ## Section Headers
 
-Each of the four sections starts on a new page and has:
+Each of the four sections has:
 - A full-width colored banner (height: 40pt) in COLOR_PRIMARY
 - Section number + title in white, Helvetica-Bold 14pt, left-aligned with 20pt padding
-- A subtitle in COLOR_MUTED, 9pt, below the banner
+- Each section header uses the same banner style — regardless of whether it starts a new page or shares a page with other sections. Do not shrink, recolor, or simplify this banner style. Candidate must be able to distinguish one section from another.
+- A subtitle in COLOR_MUTED, 9pt, below the banner, with at least 16pt of vertical gap between the heading baseline and the subtitle baseline
 
 Example:
 ```
@@ -85,7 +87,13 @@ Example:
   01  Performance Overview
 [Subtitle: A summary of your mock interview performance]
 ```
+---
 
+## Spacing Between Cover Banner and First Section
+
+On page 1, the cover banner and the Section 1 banner must NOT be adjacent or touching.
+Leave a 28pt gap of white space between the bottom edge of the cover banner and the top edge of the Section 1 banner. This gap must be visually obvious — the
+two navy blocks should read as clearly separate elements, not one continuous block.
 ---
 
 ## Score Display (used in Section 1 and Section 2)
@@ -203,7 +211,7 @@ Use a prominent highlight box:
 
 ---
 
-## Footer (every page except cover)
+## Footer (every page)
 
 ```python
 def draw_footer(canvas, page_num, session_num, interview_type):
@@ -240,35 +248,9 @@ Use a simple table with COLOR_LIGHT_BG alternating rows.
 - All body text: 10pt, COLOR_TEXT, 14pt line spacing
 - All section content: starts 20pt below the section banner
 - Paragraph spacing: 8pt between paragraphs
+- Any colored box (quote box, highlight box) must be followed by at least 12pt of vertical space before the next heading or label begins
 - Use `Spacer(1, 12)` between subsections when using Platypus, or manually track y-position with canvas
 - Prefer canvas (low-level) over Platypus for pixel-accurate control of the quote boxes and progress bars
 - Always call `canvas.showPage()` at the end of each page and `canvas.save()` at the end
-
-
-# Design System
-
-Persistent design rules for PM Interview Coach outputs. Apply these any time layout, typography, or content boxes are touched.
-
----
-
-## Box sizing
-
-Measure actual wrapped text height and size boxes dynamically — never use a fixed box height. Check this any time you add new content dimensions or longer feedback text, since fixed-height boxes will silently clip or leave awkward whitespace when text length changes.
-
----
-
-## Bullets
-
-Align the bullet glyph and its text on the same baseline/indent — the bullet marker and the wrapped text block should share a consistent left edge, with wrapped lines indented to match the start of the first line's text (not back to the bullet).
-
----
-
-## Fonts
-
-```css
---font-display: 'Bricolage Grotesque', Georgia, serif;
---font-body:    'DM Sans', -apple-system, sans-serif;
-```
-
-- `--font-display`: titles, section headers, score displays
-- `--font-body`: body copy, quotes, labels
+- Box Sizing: Measure actual wrapped text height and size boxes dynamically — never use a fixed box height. Check this any time you add new content dimensions or longer feedback text, since fixed-height boxes will silently clip or leave awkward whitespace when text length changes.
+- Bullet: Align the bullet glyph and its text on the same baseline/indent — the bullet marker and the wrapped text block should share a consistent left edge, with wrapped lines indented to match the start of the first line's text (not back to the bullet).

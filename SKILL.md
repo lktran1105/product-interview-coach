@@ -79,6 +79,8 @@ The key principle: Every piece of feedback should be specific, actionable, and t
 
 Also identify the **single highest-leverage improvement** — the one thing that, if fixed, would most improve their next interview performance.
 
+If the candidate never addressed a dimension at all (e.g., ran out of time before naming metrics), do not substitute the interviewer's closing remarks or any other stand-in text as the "What was said" quote. Instead, write "None — not addressed in this session" and adjust "How to improve" to focus on building in time/awareness for that dimension next time.
+
 ---
 
 ## Step 4 — Determine the session number
@@ -96,7 +98,7 @@ If the folder does not exist, this is Session 1.
 ---
 
 ## Step 5 — Generate the PDF report
-Keep the PDF to 2 pages. If the 2 pages are tight, prioritize the Deep Dive section and the Learning Plan. The Performance Overview and Feedback Progress Tracker can be more concise.
+There are no page limit. However, keep the feedback concise.
 
 Use `reportlab` to create the PDF. Save it to:
 

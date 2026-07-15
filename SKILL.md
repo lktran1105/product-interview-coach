@@ -38,13 +38,17 @@ Identify the questions asked and the user's responses. If the transcript is too 
 
 ## Step 1 — Identify the interview type
 
-Ask the user which type of mock interview this is, if they haven't already said:
+First, infer the likely interview type yourself from the transcript — the prompt phrasing is usually enough to tell:
 
 - Product Design
 - Product Strategy
 - Behavioral / Leadership
 - Estimation / Analytical
 - Root Cause Analysis
+
+Do not skip straight to grading based on this inference. Always confirm it with the user before proceeding, even when it seems obvious — state which type you inferred and briefly why (e.g., "This reads as a Product Strategy round — the prompt asks what you'd build/prioritize rather than a specific design or a past experience. Confirm before I grade?"). Wait for the user to confirm or correct it before moving to Step 2.
+
+If the user has already stated the interview type explicitly, skip the inference and confirmation and just proceed with what they said.
 
 ---
 
@@ -83,17 +87,44 @@ If the candidate never addressed a dimension at all (e.g., ran out of time befor
 
 ---
 
-## Step 4 — Determine the session number
+## Step 4 — Determine the session number and gather prior progress
 
-Check whether a feedback folder already exists for this interview type:
+First, check the local output folder for this interview type:
 
-```
+​```
 /mnt/user-data/outputs/<InterviewType>/
-```
+​```
 
-Count how many PDF files are already in that folder. The current session number = count + 1.
+**If PDFs already exist in this folder**, use them directly — this means prior sessions happened
+earlier in this same conversation. Count them; the current session number = count + 1. Extract
+each prior PDF's Feedback Progress Tracker data (see extraction method below) to build cross-session
+progression.
 
-If the folder does not exist, this is Session 1.
+**If the folder does not exist or is empty**, do not assume this is Session 1 automatically — the
+user may have done mock interviews in an earlier conversation and downloaded the PDFs elsewhere.
+Ask the user once, before grading:
+
+> "Is this your first [Interview Type] mock, or do you have a previous feedback PDF I should
+> factor in for progress tracking? If you have one, feel free to upload it."
+
+Handle the response:
+- **User has no prior PDF / this is their first attempt** → proceed as Session 1, baseline.
+- **User uploads one or more prior PDFs** → look at only the **3 most recent** (by session number
+  or upload order, whichever is clearer from what's provided — if more than 3 are uploaded, use
+  the 3 highest session numbers and ignore the rest). For each of those, read the PDF from
+  `/mnt/user-data/uploads/` using `pdfplumber` and extract **only the Feedback Progress Tracker
+  section** — do not extract or return the full PDF text (Deep Dive quotes, summary paragraphs,
+  cover page, etc.) into context. Locate the section by searching for the "Feedback Progress
+  Tracker" heading and reading only the text between it and the next section banner. From that
+  section, pull:
+  - The session number
+  - The named skills and levels listed
+  The current session number = the highest session number found across the uploaded PDFs, plus 1.
+- **User says they have one but can't find/upload it** → proceed as if this is the first *tracked*
+  session (note this in Section 3 rather than blocking progress).
+
+Do not re-ask this question if prior PDFs were already found locally in this same folder — only
+ask when the folder is empty or missing.
 
 ---
 
@@ -144,6 +175,9 @@ This section tracks all feedback items across all sessions in this folder.
 - For each prior session file found, note its filename and session number in a reference table
 - For feedback items that appeared in prior sessions, show the progression across sessions (e.g., Session 1: 2/10 → Session 2: 4/10 → Session 3: 7/10)
 - If this is Session 1, note that this is the baseline for future tracking
+- If prior session data came from an **uploaded PDF** rather than a local folder scan, only its Feedback Progress Tracker section was read (not the full PDF) — merge those extracted skill names/levels with this session's skill list by name, using judgment to match skills that are worded slightly differently across sessions (e.g. "Quantify user impact" and "Quantifying impact" are the same skill).
+- If more than 3 prior PDFs exist or were uploaded, only the 3 most recent are reflected in the progression — note this in the reference table if it applies (e.g., "Showing your 3 most recent sessions").
+- Note in the reference table whether each prior session's data came from a local file or an upload, so the user understands where the history came from.
 
 **Important**: Since PDFs are self-contained, list the filenames of all other session PDFs in this folder so the user can cross-reference them manually. Format as:
 

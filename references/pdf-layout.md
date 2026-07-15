@@ -65,7 +65,7 @@ The first page is a cover with:
     - "Session N Feedback Report" in light blue-grey, 14pt, below title
   
   - To the right:
-    - Score badge: circle, filled with accent blue, radius = banner_h / 2 (so the circle spans the full banner height, edge-to-edge), vertically centered in the banner.
+    - Score badge: circle, filled with accent blue, spans the full banner height, edge-to-edge. The score badge circle's diameter must be large enough that the score text (e.g., '4.5') and the '/ 10' label both fit fully inside the circle with at least 6-8pt of padding between the text and the circle's edge on all sides — the font sizes should be treated as fixed and the circle sized to fit them, not the other way around.
     - "8.3" in white, 36pt bold
     - "/ 10" in white, 16pt
 
@@ -94,6 +94,10 @@ Example:
 On page 1, the cover banner and the Section 1 banner must NOT be adjacent or touching.
 Leave a 28pt gap of white space between the bottom edge of the cover banner and the top edge of the Section 1 banner. This gap must be visually obvious — the
 two navy blocks should read as clearly separate elements, not one continuous block.
+---
+## Question Block
+
+Immediately before the Section 1 banner, add a dedicated Interview Question block: a small bold label 'INTERVIEW QUESTION' (8-9pt, muted color) followed by the prompt text (9.5-10pt, regular) in a lightly shaded background box with rounded corners, spanning the content width. Cap the block at 4 lines of wrapped text; if the question is longer, truncate at the 4th line and end with an ellipsis. This block sits after the fixed 28pt gap below the cover banner (the gap stays fixed regardless of question length), and is followed by its own 16-20pt spacing before the Section 1 banner begins — so the block's height is the only variable element, not the gap itself.
 ---
 
 ## Score Display (used in Section 1 and Section 2)
@@ -254,3 +258,4 @@ Use a simple table with COLOR_LIGHT_BG alternating rows.
 - Always call `canvas.showPage()` at the end of each page and `canvas.save()` at the end
 - Box Sizing: Measure actual wrapped text height and size boxes dynamically — never use a fixed box height. Check this any time you add new content dimensions or longer feedback text, since fixed-height boxes will silently clip or leave awkward whitespace when text length changes.
 - Bullet: Align the bullet glyph and its text on the same baseline/indent — the bullet marker and the wrapped text block should share a consistent left edge, with wrapped lines indented to match the start of the first line's text (not back to the bullet).
+- No need for emojis. Users can already tell the differences from the colors and box. Keep it simple.

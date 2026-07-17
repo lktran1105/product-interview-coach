@@ -259,3 +259,22 @@ Use a simple table with COLOR_LIGHT_BG alternating rows.
 - Box Sizing: Measure actual wrapped text height and size boxes dynamically — never use a fixed box height. Check this any time you add new content dimensions or longer feedback text, since fixed-height boxes will silently clip or leave awkward whitespace when text length changes.
 - Bullet: Align the bullet glyph and its text on the same baseline/indent — the bullet marker and the wrapped text block should share a consistent left edge, with wrapped lines indented to match the start of the first line's text (not back to the bullet).
 - No need for emojis. Users can already tell the differences from the colors and box. Keep it simple.
+
+---
+## General Rule: Preventing Element Overlap via Draw Order
+
+PDF/canvas drawing has no z-index — elements are painted strictly in the order the code draws them, and a later, opaque element will always paint over anything beneath it, regardless of how light or pale the earlier element's background color is. A near-white box sitting under an opaque banner is invisible, not "behind" it.
+
+Before drawing any new block, the y-coordinate for the *next* element must be derived from the full computed height of the block just drawn — not a hardcoded offset. Full height means:
+
+- number of wrapped text lines × line height
+- plus top and bottom internal padding
+- plus the intended gap before the next element
+
+Never advance y by a fixed guess (e.g., "subtract 40") that isn't actually computed from the content just drawn. Fixed offsets silently break the moment content length changes — one line of text vs. three lines produces a different actual height, and a hardcoded offset won't reflect that.
+
+**Before finalizing any new element added between two existing ones**, explicitly trace:
+- the bottom y-edge of the block above (its start y − its full computed height)
+- the top y-edge of the block below (its start y)
+
+Confirm there is a clear, intentional gap between these two values. If the bottom edge of the upper block is at or below the top edge of the lower block, they overlap — this must be checked via the actual numbers, not just a visual scan of the rendered PNG, since overlap with a pale background color is easy to miss by eye even when reviewing output.

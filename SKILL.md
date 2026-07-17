@@ -205,7 +205,44 @@ Use `present_files` to share the generated PDF with the user.
 Then summarize in chat (2–4 sentences) what the top finding was and what the learning plan recommends. Keep it brief — the PDF has the detail.
 
 ---
+## Step 7 — Offer a calendar practice hold (optional)
 
+After presenting the PDF to the user, check whether a Google Calendar connector is available.
+
+**If no Google Calendar connector is available:**
+Use `search_mcp_registry` to check, then `suggest_connectors` to offer connecting it. If the
+user declines or doesn't connect, skip this step entirely — do not block or repeat the offer.
+
+**If a Google Calendar connector is available (connected or just connected):**
+Ask a single yes/no question:
+
+> "Want me to set up a calendar hold to practice before your next mock?"
+
+- **If no** → stop here. No further action.
+- **If yes** → ask for their scheduling preference, accepting either a specific date/time or a
+  range (e.g., "Thursday afternoon," "between 8-10pm for the next three days"). Accept whatever
+  format they give; don't force a specific structure.
+
+**Finding a slot:**
+Use the Calendar connector to check events within the stated window.
+- If a free slot of the requested duration (default 30 min if unspecified) exists within the window, propose the earliest one.
+- If no slot is free anywhere in the stated window, propose the **closest available slot outside** the window instead, and clearly flag that it's outside what they asked for. Only propose slots between 9am–9pm local time, unless the user explicitly requests otherwise.
+- Always show the proposed slot and ask for confirmation before creating anything — never create the event silently, even if the user has already said "yes" to the general idea.
+
+**Creating the event:**
+Once confirmed, create a **single, one-off** event (no recurrence) using the Calendar connector:
+- **Title:** `Practice: [Interview Type] — [short Learning Plan focus]`
+- **Description:** the "why this matters" + practice suggestions from that session's Learning Plan
+- **Duration:** as discussed with the user (default 30 min)
+
+This is a single-session offer — do not ask about recurring holds or attempt to track/update this
+event in future sessions. Each new report gets its own independent offer.
+
+Do not attach the PDF report to the event unless the user explicitly asks — this requires first
+uploading the PDF to Google Drive to get a shareable link, since the Calendar connector's
+attachment field only accepts a URL, not a local file.
+
+---
 ## Error handling
 
 - If the transcript is too short or unclear to grade meaningfully, tell the user and ask them to provide more context or a fuller transcript.

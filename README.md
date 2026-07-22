@@ -31,15 +31,25 @@ Upload a transcript file (PDF or `.txt`) or paste the text directly, and ask Cla
 **2. Get a scored PDF report**
 Claude generates a four-section report:
 - **Performance Overview** — overall score, a summary, what's working, what needs improvement
+<img width="580" height="549" alt="part 1" src="https://github.com/user-attachments/assets/e1a1bd4f-65a5-42b6-882e-94490d8577d9" />
+
 - **Deep Dive** — your 2–3 lowest-scoring dimensions, each with a verbatim quote from your answer, a concrete way to improve it, and an example of a stronger version
+<img width="582" height="712" alt="part 2" src="https://github.com/user-attachments/assets/58a612c8-2945-495d-a924-983aad53b247" />
+
 - **Feedback Progress Tracker** — named skills (e.g. "Quantify user impact") scored for this session
+<img width="574" height="657" alt="part 3" src="https://github.com/user-attachments/assets/bf276338-31fa-4861-b592-8f08b35ca37b" />
+
 - **Learning Plan** — the single most impactful thing to focus on next, with practice suggestions and an effort-vs-impact estimate
+<img width="579" height="460" alt="part 4" src="https://github.com/user-attachments/assets/ff7190df-81fe-4d3b-a08c-06d8c2b43f40" />
+
 
 **3. Track progress across sessions**
 Run more mocks and upload prior reports (or just keep grading in the same conversation), and each new report shows how your named skills have moved — e.g. "Structure answers with frameworks: Session 1: 3/10 → Session 2: 6/10." It looks back at your 3 most recent sessions per interview type.
 
 **4. Close the loop with a calendar hold**
 If Google Calendar is connected, Claude can offer to book a one-off practice session targeted at your weakest area — proposing a time, confirming with you, then creating the event with the "why it matters" and practice suggestions in the description.
+<img width="478" height="467" alt="calendar" src="https://github.com/user-attachments/assets/b1abef99-1038-44de-8cd0-0ddc03bb5025" />
+
 
 ## Output
 - Feedback is tied to specific quotes from your transcript, not generic advice.
@@ -50,13 +60,13 @@ If in the same context window (chat session), Claude will remember the feedback 
 Highly recommend user to download each feedback report to refer back to. 
 
 ## How to use
-** As a Claude Code skill **
+**As a Claude Code skill**
 
 1. Copy the `pm-interview-coach` folder into Claude Skills directory.
 2. Share a mock interview transcript with Claude and ask it to grade your performance.
 3. (Optional) Connect with Google Calendar to book practice directly on your calendar.
 
-** Trigger phrases **
+**Trigger phrases**
 - "Grade my mock interview"
 - "Feedback on my mock"
 - "How did I do in this interview"

@@ -62,9 +62,11 @@ Highly recommend user to download each feedback report to refer back to.
 ## How to use
 **As a Claude Code skill**
 
-1. Copy the `pm-interview-coach` folder into Claude Skills directory.
-2. Share a mock interview transcript with Claude and ask it to grade your performance.
-3. (Optional) Connect with Google Calendar to book practice directly on your calendar.
+1. Click on the green "Code" button on this Github --> Download zip file
+2. Open Claude --> Select "Customize" --> Select "Skills"
+3. Click "Add" --> "Upload a skill" --> Upload the zip file
+4. Open a new chat. Share a mock interview transcript with Claude and ask it to grade your performance.
+5. (Optional) Connect with Google Calendar to book practice directly on your calendar.
 
 **Trigger phrases**
 - "Grade my mock interview"

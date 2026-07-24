@@ -2,14 +2,9 @@
 name: pm-interview-coach
 description: >
   Grade and give structured feedback on product manager mock interview transcripts.
-  Use this skill whenever the user shares a mock interview transcript and wants coaching,
-  scoring, or improvement advice. Trigger phrases include: "grade my mock interview",
-  "feedback on my mock", "how did I do in this interview", "what can I improve from this mock",
-  "review my PM interview", "what do I do well in this mock", "score my interview performance",
-  "analyze my mock interview", "help me improve my PM answers". Also trigger when the user
-  uploads any file described as a transcript, interview recording, or mock session.
-  Supports: Product Design, Product Strategy, Behavioral/Leadership, Estimation/Analytical,
-  and Root Cause Analysis interview formats. This skill produces a structured PDF feedback report saved in a folder organized by interview type.
+  Use this skill whenever the user shares a mock interview transcript and wants coaching, scoring, or improvement advice. Trigger phrases include: "grade my mock interview", "feedback on my mock", "how did I do in this interview", "what can I improve from this mock", "review my PM interview", "what do I do well in this mock", "score my interview performance",
+  "analyze my mock interview", "help me improve my PM answers". Also trigger when the user uploads any file described as a transcript, interview recording, or mock session.
+  Supports: Product Design, Product Strategy, Behavioral/Leadership, Estimation/Analytical, and Root Cause Analysis interview formats. This skill produces a structured PDF feedback report saved in a folder organized by interview type.
 ---
 
 # PM Interview Coach
